@@ -27,19 +27,13 @@ class ImageFrame extends JFrame{
 	private int randX;
 	private int randY;
 
-	private int[] particleX;
-	private int[] particleY;
-
 	private int size;
 	private int seeds;
 	private	int particles;
 	private	int steps;
 
-	private int count;
-	private int countIsStuck;
-
-
-
+	private int[] particleX;
+	private int[] particleY;
 
 	//=========================
 	public ImageFrame(int width, int height){
@@ -93,8 +87,10 @@ class ImageFrame extends JFrame{
 	}
 	private void CreateBufferedImageT(){
 		size = promptForSize();
+		//System.out.println("size: " +size);
 		seeds = promptForSeeds();
 		particles = promptForParticles();
+		//System.out.println("Particles: " +particles);
 		steps = promtForSteps();
 
 		int[] particleX = new int[particles];
@@ -104,19 +100,34 @@ class ImageFrame extends JFrame{
 		setBG_white(size,image);
 		setSeedPixel(seeds,image);//set seed pixels to red randomly
 		
-		setParticlePixel(particles,image);//set starting location for particles & paint it black
-
-		
+		//setParticlePixel(particles,image, particleX[], particlY[]);
+		//set starting location for particles
+		for(int b=0; b<particles;b++){
+			 int randX2 = rand.nextInt(size-1);
+			 int randY2 = rand.nextInt(size-1);
+			 particleX[b] = randX2;
+			 particleY[b] = randY2;
+			//image.setRGB(particleX[b],particleY[b],0xFF000000);
+		}
 		for(int s=0;s<steps;s++){
 			//for(int x=0;x<size-1;x++ ){//loop thru the canvas, since technically every 
 			for(int i=0;i<particles;i++){
-				if((isStuck(particleX[i],particleY[i],image))==false){ //for every particle that is not stuck
-					countIsStuck++;
+				if(isStuckT(particleX[i],particleY[i],image)){
+					//if t's already stuck
+					//if(image.getRGB(particleX[i],particleY[i])!= 0xFF000000){ //if it isn't black already
+						image.setRGB(particleX[i],particleY[i],0xFF000000); //set it to black
+					//}
+					
+				}
+				//else if((isStuck(particleX[i],particleY[i],image))==false){ //for every particle that is not stuck
+				else{ //if its a free particle
 					int randX_ = rand.nextInt(3)-1; //generating neigbbors[-1,1]
 					int randY_ = rand.nextInt(3)-1; //generating neighbors[-1,1]
 
 					int x = particleX[i]+ randX_;
 					int y = particleY[i]+randY_;
+					//before changing particleX[i],particleY[i] change it back to white.
+					//image.setRGB(particleX[i],particleY[i],0xFFFFFFFF);
 					//set (x,y) to wrap around if outside of boundary ---bc tortorial plane
 						if(x<0){
 							x = size-1;
@@ -130,45 +141,72 @@ class ImageFrame extends JFrame{
 						if(y>size-1){
 							y=0;
 						}
-						System.out.println("x: " + x);
-						System.out.println("y: " +y);
-						System.out.println("Count isStuck: "+ countIsStuck);
-						image.setRGB(x,y,0xFF000000);
+						//update position info. 
+						particleX[i] = x;
+						particleY[i] = y;
+						//image.setRGB(particleX[i],particleY[i],0xFF000000);
 				}
 			}
 		}
 		displayFile(image);
 	}
 	private void CreateBufferedImageBP(){
-		
-		int size = promptForSize();
-		int seeds = promptForSeeds();
-		int particles = promptForParticles();
-		
+		size = promptForSize();
+		seeds = promptForSeeds();
+		particles = promptForParticles();
+		steps = promtForSteps();
+
+		int[] particleX = new int[particles];
+		int[] particleY = new int[particles];
+
 		BufferedImage image = new BufferedImage(size,size,BufferedImage.TYPE_INT_ARGB);
 		setBG_white(size,image);
-
-		displayFile(image);
-	}
-
-	//set seeds to red randomly
-	private void setSeedPixel(int seeds_, BufferedImage image_){
-		for(int a=0; a<seeds_; a++){
-			 randX = rand.nextInt(size-1);
-			 randY = rand.nextInt(size-1);
-			image_.setRGB(randX,randY,0xFFFF0000);
-		}
-	}
-	private void setParticlePixel(int particles_,BufferedImage image_){
+		//set seed pixels to red randomly
+		setSeedPixel(seeds,image);
+		//set particle pixels and set them to the created
 		for(int b=0; b<particles;b++){
 			 randX = rand.nextInt(size-1);
 			 randY = rand.nextInt(size-1);
 			 particleX[b] = randX;
 			 particleY[b] = randY;
-			image_.setRGB(particleX[b],particleY[i],0xFF000000);
+			//image.setRGB(randX,randY,0xFF000000);
 		}
+		
+		for(int s=0;s<steps;s++){
+			for(int i=0;i<particles;i++){
+				if(isStuckBP(particleX[i],particleY[i],image)){
+					image.setRGB(particleX[i],particleY[i],0xFF000000);
+				}
+				else{
+				//((isStuck(particleX[i],particleY[i],image))==false){ //for every particle that is not stuck		
+					int randX_ = rand.nextInt(3)-1; //generating neigbbors[-1,1]
+					int randY_ = rand.nextInt(3)-1; //generating neighbors[-1,1]
+
+					int x = particleX[i]+ randX_;
+					int y = particleY[i]+randY_;
+					//set (x,y) to wrap around if outside of boundary ---bc tortorial plane
+						if(x<0){
+							x = 0;
+						}
+						if(y<0){
+							y = 0;
+						}
+						if(x>(size-1)){
+							x=size-1;
+						}
+						if(y>size-1){
+							y=size-1;
+						}
+						//update position info. 
+						particleX[i] = x;
+						particleY[i] = y;
+						//image.setRGB(x,y,0xFF000000);
+				}
+			}
+		}
+		displayFile(image);
 	}
-	private boolean isStuck(int x, int y, BufferedImage image_){
+	private boolean isStuckT(int x, int y, BufferedImage image_){
 		boolean isTrue = false;
 		int A;
 		int B;
@@ -177,7 +215,7 @@ class ImageFrame extends JFrame{
 			B = y+i;
 			if(A<0){
 				A= size-1;
-				}
+			}
 			if(B<0){
 				B= size-1;
 				}
@@ -188,33 +226,52 @@ class ImageFrame extends JFrame{
 				B=0;
 			}
 			if((image_.getRGB(A,y) != 0xFFFFFFFF) || (image_.getRGB(x,B)!=0xFFFFFFFF)){
-				isTrue = true;
-			}
-			else{
-				isTrue = false;
+				return true;
 			}
 		}
 		
-		System.out.println("isStuck: " + isTrue);
+		//System.out.println("isStuck: " + isTrue);
+		//if it didn't break out of the loop of having it true..than return false;
 		return isTrue;
 	}
-	/*
-	private boolean isStuck(int x, int y, BufferedImage image_){
-		for(int i=-1;i<=1;i++){
-			int A = x+i;
-			if(image_.getRGB(A,y) != 0xFFFFFFFF){
-				System.out.println("int A: " + A);
-				return true;
+
+	private boolean isStuckBP(int x, int y, BufferedImage image_){
+		boolean isTrue = false;
+		int A;
+		int B;
+		for(int i=-1;i<2;i++){
+			A = x+i;
+			B = y+i;
+			if(A<0){
+				A= 0;
 			}
-			int B = y+i;
-			if(image_.getRGB(x,B)!= 0xFFFFFFFF){
-				System.out.println("int B: " + B);
+			if(B<0){
+				B= 0;
+				}
+			if(A>(size-1)){
+				A= size-1;
+			}
+			if(B>size-1){
+				B= size-1;
+			}
+			if((image_.getRGB(A,y) != 0xFFFFFFFF) || (image_.getRGB(x,B)!=0xFFFFFFFF)){
+				//System.out.println("True" );
 				return true;
 			}
 		}
-		return false;
+		
+		//System.out.println("isStuck: " + isTrue);
+		return isTrue;
 	}
-	*/
+
+	//set seeds to red randomly
+	private void setSeedPixel(int seeds_, BufferedImage image_){
+		for(int a=0; a<seeds_; a++){
+			 int randX1 = rand.nextInt(size-1);
+			 int randY1 = rand.nextInt(size-1);
+			image_.setRGB(randX1,randY1,0xFFFF0000);
+		}
+	}
 	private int promptForSize(){ //helper method to bufferedIMage methods
 		//try catch statement for non int inputs.
 		String input = JOptionPane.showInputDialog("Please enter the size of your canvas");
@@ -257,13 +314,13 @@ class ImageFrame extends JFrame{
 			return steps_;
 		}
 		else{
-			return promptForParticles(); //if input was invalide, prompt for size again.
+			return promptForSteps(); //if input was invalid, prompt for size again.
 		}
 	}
 	private boolean valideInput(String input_){
 		try{	
 			int num = Integer.parseInt(input_);
-			if(num<=0){
+			if(num<0){
 				JOptionPane.showMessageDialog(null, "Invalid Input", "alert", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}

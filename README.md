@@ -13,4 +13,8 @@ This class is taken with Dave Samll in Fall 2015.
 
 ##HW02
 1.Gradients are made using bilinear interpolation with BufferedImage Class.
+##HW03
+"Implemented crystal like sketches using diffusion limited aggregation algorithmn"
+##HW04
+Implemented a photo filter effect for making "opArt".
 

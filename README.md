@@ -23,7 +23,7 @@ HW#5 -
 Generate a random walk plant algorithm, display the final image base on user inputs
 HW#5a - 
 Modify your HW #05 solution so that...the color,brushstroke,will smoothly interpolate from the root of the plant to the tip of the plant.
-HW#5c - 
+HW#5b - 
 Modify your HW #05a so that it animates the plant's growth (as described in lecture). Generate each animation frame on a worker thread, not the EDT.
 ##HW07
 For this assignment you shall be implementing one of the Affine Transform Fractal techniques described in lecture: MRCM or IFS.

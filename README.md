@@ -6,8 +6,7 @@ A collection of Java implementation of generative art.
 ![Julia Set Visualization 2](./Selected_Gallery/julia2.png)
 ![Julia Set Visualization 2](./Selected_Gallery/julia3.png)
 ![Affine Transform Fractal Crystal](./Selected_Gallery/IFS_Crystal.png)
-![Affine Transform Fractal Fern](./Selected_Gallery/IFS_w_P_Fern.png)![Random Walk Plant Interpolation](./Selected_Gallery/RandomWalkPlantInterpolation.JPG)
-![Game of Life](./Selected_Gallery/gameOfLife.png)
+![Affine Transform Fractal Fern](./Selected_Gallery/IFS_w_P_Fern.png)![Random Walk Plant Interpolation](./Selected_Gallery/RandomWalkPlantInterpolation1.JPG)
 
 ## Descriptions
 

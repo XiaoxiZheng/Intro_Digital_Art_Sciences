@@ -1,26 +1,34 @@
 # Introduction to Digital Art and Sciences.
 
-This folder contains codes made for Introduction to Digital Art and Sciences.
-This class is taken with Dave Samll in Fall 2015.
+A collection of Java implementation of generative art.
 
-## HW01
->"Drunken walk" or sketches generated using random generator on different topologies
+![Julia Set Visualization 1](./Selected_Gallery/julia.png)
+![Julia Set Visualization 2](./Selected_Gallery/julia2.png)
+![Julia Set Visualization 2](./Selected_Gallery/julia3.png)
+![Affine Transform Fractal Crystal](./Selected_Gallery/IFS_Crystal.png)
+![Affine Transform Fractal Fern](./Selected_Gallery/IFS_w_P_Fern.png)![Random Walk Plant Interpolation](./Selected_Gallery/RandomWalkPlantInterpolation.JPG)
+![Game of Life](./Selected_Gallery/gameOfLife.png)
 
-+Toplogies include:
- 1.Infinitive plane
- 2.Bounded plane
- 3.Trtorial plane
+## Descriptions
 
-## HW02
-1.Gradients are made using bilinear interpolation with BufferedImage Class.
+### HW01
+"Drunken walk" or sketches generated using random generator on the following topologies
 
-## HW03
-"Implemented crystal like sketches using diffusion limited aggregation algorithmn"
+* Toplogies include:
+ * Infinitive plane
+ * Bounded plane
+ * Trtorial plane
 
-## HW04
+### HW02
+Created gradients using bilinear interpolation with BufferedImage Class.
+
+### HW03
+"Implemented crystal like sketches using diffusion limited aggregation algorithm"
+
+### HW04
 Implemented a photo filter effect for making "opArt".
 
-## HW05
+### HW05
 Generate a random walk plant algorithm, display the final image base on user inputs
 
 ### HW5a
@@ -29,10 +37,10 @@ Modify your HW #05 solution so that...the color,brushstroke,will smoothly interp
 ### HW5b
 Modify your HW #05a so that it animates the plant's growth (as described in lecture). Generate each animation frame on a worker thread, not the EDT.
 
-## HW07
+### HW07
 For this assignment you shall be implementing one of the Affine Transform Fractal techniques described in lecture: MRCM or IFS.
 
-## HW08
+### HW08
 Implemented L-System algorithm to generate fractals.
 
 ## HW09
@@ -41,5 +49,5 @@ For this assignment you shall be implementing a Mandelbrot set and Julia set exp
 ## HW10
 For this assignment you shall be implementing a Mandelbrot set and Julia set explorer with animated (un)zooming.
 
-## HW11
-For this assignment you shall be implementing Conway's Game of Life. 
+### HW11
+For this assignment you shall be implementing Conway's Game of Life.
